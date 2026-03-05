@@ -63,14 +63,22 @@ def write_config(config: dict, output_dir: str | None = None) -> Path:
     return config_path
 
 
-def install_to_home(config: dict) -> Path | None:
-    """Install config to the user's Continue.dev config directory."""
+def install_to_home(config: dict, overwrite: bool = False) -> Path | None:
+    """Install config to the user's Continue.dev config directory.
+
+    If overwrite is False and ~/.continue/config.json already exists, does nothing
+    and returns None (caller should prompt and pass overwrite=True to replace).
+    When overwriting, the existing file is backed up to config.json.backup.
+    """
     home = Path.home()
     continue_dir = home / ".continue"
     continue_dir.mkdir(parents=True, exist_ok=True)
     config_path = continue_dir / "config.json"
 
-    # Back up existing config
+    if config_path.exists() and not overwrite:
+        return None
+
+    # Back up existing config before overwriting
     if config_path.exists():
         backup = continue_dir / "config.json.backup"
         config_path.rename(backup)
