@@ -39,7 +39,7 @@ All powered by local models. Nothing leaves your machine.
 
 | Tier | Model | Download | RAM | Best For |
 |------|-------|----------|-----|----------|
-| small | `qwen2.5-coder:1.5b` | ~1 GB | 4 GB | Fast completions, low-end hardware |
+| small | `phi4-mini` | ~2.5 GB | 4 GB | Fast completions, low-end hardware |
 | medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | **Recommended default** |
 | large | `deepseek-coder-v2:16b` | ~9 GB | 16 GB | Highest quality |
 

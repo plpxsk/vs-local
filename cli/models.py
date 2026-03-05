@@ -13,8 +13,8 @@ class ModelInfo:
 
 TIERS: dict[str, ModelInfo] = {
     "small": ModelInfo(
-        name="qwen2.5-coder:1.5b",
-        size_gb=1.0,
+        name="phi4-mini",
+        size_gb=2.5,
         min_ram_gb=4,
         description="Fast completions, low-end hardware",
     ),

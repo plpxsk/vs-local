@@ -1,17 +1,19 @@
 {
   "models": [
     {
-      "title": "Local Qwen Coder",
-      "provider": "ollama",
-      "model": "qwen2.5-coder:7b",
-      "apiBase": "http://localhost:11434"
+      "title": "Local Coder (LM Studio)",
+      "provider": "openai",
+      "model": "qwen/qwen3-1.7b",
+      "apiBase": "http://localhost:1234/v1",
+      "apiKey": "lm-studio"
     }
   ],
   "tabAutocompleteModel": {
-    "title": "Local Autocomplete",
-    "provider": "ollama",
-    "model": "qwen2.5-coder:1.5b",
-    "apiBase": "http://localhost:11434"
+    "title": "Local Autocomplete (LM Studio)",
+    "provider": "openai",
+    "model": "qwen/qwen3-1.7b",
+    "apiBase": "http://localhost:1234/v1",
+    "apiKey": "lm-studio"
   },
   "allowAnonymousTelemetry": false
 }
