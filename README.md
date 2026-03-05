@@ -1,10 +1,12 @@
-# On-Device LLM for Software Development
+# Use local LLMs with VSCode
 
-Run LLMs **entirely on your machine** for code writing, refactoring, and review. Zero external network calls. Integrated with VS Code via Continue.dev.
+Run LLMs **entirely on your machine** for code writing, refactoring, and review.
 
-```
-User -> VS Code + Continue.dev -> Ollama (local) -> Local Model
-```
+Zero external network calls. Integrated with VS Code via Continue.dev.
+
+For great visual management, including usage and model switching, use LMstudio instead of Ollama.
+
+Telemtry and other configs are toggled to OFF in this setup, but use at your own risk
 
 ## Quickstart
 
@@ -15,6 +17,7 @@ cd on-device
 pip install -e ".[dev]"
 
 # 2. Run guided setup (installs Ollama, pulls model, configures Continue.dev)
+# add --lmstudio to use it
 python -m cli setup
 
 # 3. Open in VS Code
