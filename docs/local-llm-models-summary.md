@@ -135,7 +135,7 @@ ollama pull gemma3:12b
 
 These models are evaluated in the context of:
 - **Ollama** — local model runner (Windows / Mac plug-and-play)
-- **Continue.dev** — VS Code extension (disable telemetry on first launch)
+- **Continue.dev** — VS Code extension (telemetry disabled automatically via `config/continue/config.json`)
 - **MLflow** — local experiment tracking (`mlflow server --host 127.0.0.1`)
 
 All models run fully on-device with zero external calls once downloaded.

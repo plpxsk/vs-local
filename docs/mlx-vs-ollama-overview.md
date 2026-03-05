@@ -47,6 +47,8 @@ mlx_lm.server --model mlx-community/Qwen2.5-Coder-7B-Instruct-4bit
 
 Then in Continue.dev `config.json` point `apiBase` at `http://localhost:8080/v1`. For more features (multi-model, speculative decoding), use `mlx-openai-server` instead. Or just use **LM Studio**, which handles all of this automatically.
 
+> **Note:** The `config/continue/config.json` in this repo sets `"allowAnonymousTelemetry": false` — telemetry is disabled automatically when you use the provided config. With a local backend, zero data leaves your machine.
+
 ---
 
 ## MLflow
