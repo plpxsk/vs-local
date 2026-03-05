@@ -1,5 +1,8 @@
 """Typer CLI app: setup, verify, models, config commands."""
 
+from pathlib import Path
+from typing import Optional
+import click
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -9,26 +12,26 @@ from cli import detect, models, ollama, lmstudio, verify, firewall
 from cli.continue_config import generate_config, write_config, install_to_home
 
 app = typer.Typer(
-    name="on-device",
-    help="On-device LLM for software development. Zero external network calls.",
+    name="vs-local",
+    help="vs-local: local LLM for software development in VS Code. Zero external network calls.",
 )
 console = Console()
 
 
 @app.command()
 def setup(
-    use_lmstudio: bool = typer.Option(
-        False, "--lmstudio", help="Use LM Studio instead of Ollama"
+    use_lmstudio: Optional[bool] = typer.Option(
+        None, "--lmstudio", help="Use LM Studio instead of Ollama (skips prompt)"
     ),
     tier: str = typer.Option(
-        "", "--tier", help="Model tier: small, medium, large (auto-detected if empty)"
+        "", "--tier", help="Model tier: small, medium, large (auto-detected if empty). Ollama only, ignored for LM Studio."
     ),
     skip_pull: bool = typer.Option(
         False, "--skip-pull", help="Skip model download"
     ),
 ):
     """Full guided setup: runtime + model + Continue.dev config."""
-    console.print(Panel("On-Device LLM Setup", style="bold blue"))
+    console.print(Panel("vs-local Setup", style="bold blue"))
 
     # Step 1: Detect OS and RAM
     os_name = detect.get_os()
@@ -36,13 +39,31 @@ def setup(
     console.print(f"  OS: {os_name}")
     console.print(f"  RAM: {ram_gb:.1f} GB")
 
-    # Step 2: Determine model tier
-    if not tier:
-        tier = detect.recommend_tier(ram_gb)
-    model_info = models.get_model(tier)
-    console.print(f"  Recommended tier: {tier} ({model_info.name})")
+    # Step 2: Select runtime
+    if use_lmstudio is None:
+        choice = click.prompt(
+            "\nSelect runtime",
+            type=click.Choice(["ollama", "lmstudio"]),
+            default="ollama",
+        )
+        use_lmstudio = choice == "lmstudio"
 
-    # Step 3: Check/install runtime
+    # Step 3: Select model tier and model (Ollama only)
+    if not use_lmstudio:
+        recommended = detect.recommend_tier(ram_gb)
+        if not tier:
+            console.print("")
+            for t, info in models.get_all_models().items():
+                tag = "  ← recommended" if t == recommended else ""
+                console.print(f"  {t:<8} {info.name:<30} ~{info.size_gb:.1f} GB  {info.min_ram_gb} GB RAM{tag}")
+            tier = click.prompt(
+                "\nSelect tier",
+                type=click.Choice(list(models.get_all_models())),
+                default=recommended,
+            )
+        model_info = models.get_model(tier)
+
+    # Step 4: Check/install runtime
     if use_lmstudio:
         console.print("\n[bold]Checking LM Studio...[/bold]")
         if not lmstudio.is_running():
@@ -73,9 +94,12 @@ def setup(
                 raise typer.Exit(1)
         console.print("[green]Ollama server is running.[/green]")
 
-        model_name = model_info.name
+        model_name = click.prompt(
+            "\nModel to download (press Enter to confirm, or type a custom name)",
+            default=model_info.name,
+        )
 
-        # Step 4: Pull model
+        # Step 5: Pull model
         if not skip_pull:
             local = ollama.list_local_models()
             needed = [model_name]
@@ -92,7 +116,7 @@ def setup(
                 else:
                     console.print(f"  {m} already available.")
 
-    # Step 5: Generate Continue.dev config
+    # Step 6: Generate Continue.dev config
     console.print("\n[bold]Generating Continue.dev config...[/bold]")
     provider = "lmstudio" if use_lmstudio else "ollama"
     config = generate_config(model_name, provider=provider)
@@ -103,15 +127,24 @@ def setup(
     if home_path:
         console.print(f"  Config installed to: {home_path}")
 
-    # Step 6: Verify
+    # Step 7: Verify
     console.print("\n[bold]Running verification...[/bold]")
+    if use_lmstudio:
+        console.print("  [dim]Inference test will call LM Studio — check the app if this hangs.[/dim]")
     report = verify.run_all(model_name, use_lmstudio=use_lmstudio)
     _print_report(report)
 
     if report.all_passed:
-        console.print("\n[bold green]Setup complete! Open this repo in VS Code to get started.[/bold green]")
+        console.print("\n[bold green]Setup complete![/bold green]")
     else:
         console.print("\n[bold yellow]Setup completed with warnings. See above.[/bold yellow]")
+    console.print(
+        "\nTo use in your own project:\n"
+        "  1. Open any repo in VS Code — Continue.dev is already configured globally.\n"
+        "  2. Optionally copy VS Code settings (security, telemetry off) into that repo:\n"
+        "       cd /path/to/your-project && python -m cli vscode-init\n"
+        "  3. Chat: Cmd+L  |  Inline edit: Cmd+I  |  Autocomplete: Tab"
+    )
 
 
 @app.command(name="verify")
@@ -183,6 +216,24 @@ def config_cmd(
         home_path = install_to_home(config)
         if home_path:
             console.print(f"Installed to: {home_path}")
+
+
+@app.command(name="vscode-init")
+def vscode_init():
+    """Copy VS Code settings (telemetry off, Continue.dev) into the current project."""
+    src = Path(__file__).parent.parent / ".vscode"
+    dest = Path.cwd() / ".vscode"
+    dest.mkdir(exist_ok=True)
+    for fname in ["settings.json", "extensions.json"]:
+        src_file = src / fname
+        dest_file = dest / fname
+        if dest_file.exists():
+            backup = dest / f"{fname}.backup"
+            dest_file.rename(backup)
+            console.print(f"  Backed up existing {fname} → {fname}.backup")
+        dest_file.write_text(src_file.read_text())
+        console.print(f"  Written: {dest_file}")
+    console.print("\n[green]Done.[/green] Reopen the folder in VS Code to apply settings.")
 
 
 @app.command(name="firewall")

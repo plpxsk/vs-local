@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-Get productive with on-device AI coding in under 5 minutes.
+Get productive with vs-local — local AI coding in VS Code — in under 5 minutes.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ Get productive with on-device AI coding in under 5 minutes.
 ```bash
 git clone https://github.com/plpxsk/vs-local.git
 cd vs-local
-pip install -e ".[dev]"
+pip install -e .
 ```
 
 ## Step 2: Setup
@@ -24,11 +24,13 @@ python -m cli setup
 
 This will:
 1. Detect your OS and available RAM
-2. Recommend a model tier based on your hardware
-3. Check that Ollama is installed (and guide you if not)
-4. Pull the recommended coding model
-5. Generate a Continue.dev config locked to localhost
-6. Run a verification check
+2. **Prompt you to choose a model tier** (small / medium / large, with a recommendation based on your RAM)
+3. **Prompt you to confirm the model** to download — or type a custom model name
+4. **Prompt you to choose a runtime** (Ollama or LM Studio)
+5. Check that the chosen runtime is available (and guide you if not)
+6. Pull the selected model (Ollama only)
+7. Generate a Continue.dev config locked to localhost
+8. Run a verification check
 
 ## Step 3: Open in VS Code
 
@@ -56,6 +58,40 @@ python -m cli verify
 ```
 
 Confirms the server is running, model is loaded, inference works, and no external network calls are detected.
+
+## Use in Your Own Project
+
+The Continue.dev config (`~/.continue/config.json`) is global and already works in any VS Code project after setup.
+
+To also apply the VS Code privacy settings (telemetry off, no auto-updates) to your own repo:
+
+**Option A — CLI:**
+```bash
+cd /path/to/your-project
+python -m cli vscode-init
+```
+
+**Option B — Manual:** Copy these two files into your project's `.vscode/` folder:
+
+`.vscode/settings.json`:
+```json
+{
+  "telemetry.telemetryLevel": "off",
+  "http.proxySupport": "off",
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "update.mode": "none"
+}
+```
+
+`.vscode/extensions.json`:
+```json
+{
+  "recommendations": ["continue.continue"]
+}
+```
+
+> The `python.defaultInterpreterPath` line from vs-local's own settings is omitted here — add it back if your project also uses `.venv`.
 
 ## Try the Examples
 

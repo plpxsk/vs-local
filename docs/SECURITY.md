@@ -49,8 +49,8 @@ python -m cli firewall
 
 #### macOS (pf)
 ```bash
-sudo cp security/pf_rules.conf /etc/pf.anchors/on-device
-# Add anchor to /etc/pf.conf, then:
+sudo cp security/pf_rules.conf /etc/pf.anchors/vs-local
+# Add to /etc/pf.conf:  anchor "vs-local"  and  load anchor "vs-local" from "/etc/pf.anchors/vs-local"
 sudo pfctl -f /etc/pf.conf
 sudo pfctl -e
 ```

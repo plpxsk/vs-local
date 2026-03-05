@@ -16,10 +16,9 @@ All powered by local LLMs through VS Code's Continue.dev extension—offline, pr
 # 1. Clone and install
 git clone https://github.com/plpxsk/vs-local.git
 cd vs-local
-pip install -e ".[dev]"
+pip install -e .
 
-# 2. Run guided setup (installs Ollama, pulls model, configures Continue.dev)
-# add --lmstudio to use it
+# 2. Run guided setup — prompts you to choose Ollama or LM Studio
 python -m cli setup
 
 # 3. Open in VS Code
@@ -31,6 +30,13 @@ code .
 ```
 
 For more, see: [Quickstart Guide](docs/QUICKSTART.md)
+
+**Using in your own project?** After setup, the Continue.dev config is global and works in any repo. To also copy the VS Code privacy settings into your project:
+
+```bash
+cd /path/to/your-project
+python -m cli vscode-init
+```
 
 Or, other guides:
 
@@ -62,14 +68,17 @@ The setup command auto-detects your RAM and _recommends a tier_.
 
 ## CLI Commands
 
+Run the app with `python -m cli` (no standalone binary):
+
 ```bash
-python -m cli setup              # Full guided setup
-python -m cli setup --lmstudio   # Use LM Studio instead of Ollama
+python -m cli setup              # Full guided setup (prompts for runtime)
+python -m cli setup --lmstudio   # Skip prompt, use LM Studio
 python -m cli verify             # Health check + network audit
 python -m cli models             # List model tiers and local models
 python -m cli models --pull qwen2.5-coder:7b  # Pull a specific model
 python -m cli config             # Regenerate Continue.dev config
 python -m cli firewall           # Show firewall setup instructions
+python -m cli vscode-init        # Copy VS Code settings into current project
 ```
 
 ## Security

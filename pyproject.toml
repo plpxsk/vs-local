@@ -3,25 +3,18 @@ requires = ["setuptools>=68.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "on-device"
+name = "vs-local"
 version = "0.1.0"
-description = "On-device LLM for software development - zero external network calls"
+description = "vs-local: local LLM for VS Code - zero external network calls"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 dependencies = [
     "typer>=0.9.0",
     "rich>=13.0.0",
-]
-
-[project.optional-dependencies]
-dev = [
     "pytest>=7.0",
     "pytest-mock>=3.10",
 ]
-
-[project.scripts]
-on-device = "cli.main:app"
 
 [tool.setuptools.packages.find]
 include = ["cli*"]

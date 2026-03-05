@@ -81,5 +81,5 @@ python --version  # Needs 3.10+
 
 ### Reinstall CLI
 ```bash
-pip install -e ".[dev]"
+pip install -e .
 ```

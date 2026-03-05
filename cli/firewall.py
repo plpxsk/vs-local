@@ -16,7 +16,7 @@ def get_firewall_info() -> str:
             f"macOS pf firewall rules are available at:\n"
             f"  {rules_file}\n\n"
             f"To apply:\n"
-            f"  sudo cp {rules_file} /etc/pf.anchors/on-device\n"
+            f"  sudo cp {rules_file} /etc/pf.anchors/vs-local\n"
             f"  sudo pfctl -f /etc/pf.conf\n"
             f"  sudo pfctl -e\n\n"
             f"This blocks all outbound traffic for Ollama/LM Studio except localhost."
