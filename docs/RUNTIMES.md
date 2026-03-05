@@ -29,6 +29,7 @@ Everything runs on your machine. No cloud APIs, no telemetry, no external networ
 | Speed on Windows/NVIDIA | Excellent | Good | — |
 | Model format | GGUF | GGUF | MLX format (HuggingFace) |
 | GUI | No | Yes | No |
+| Resource usage | Lightweight | Heavier (Electron app) | Lightweight |
 | On-device LoRA fine-tuning | Limited | No | Built-in |
 
 ---
