@@ -14,8 +14,8 @@ All powered by local LLMs through VS Code's Continue.dev extension—offline, pr
 
 ```bash
 # 1. Clone and install
-git clone https://github.com/your-org/on-device.git
-cd on-device
+git clone https://github.com/plpxsk/vs-local.git
+cd vs-local
 pip install -e ".[dev]"
 
 # 2. Run guided setup (installs Ollama, pulls model, configures Continue.dev)
@@ -29,6 +29,16 @@ code .
 # 4. Start coding with AI
 # Cmd+L (chat) | Cmd+I (inline edit) | Tab (autocomplete)
 ```
+
+For more, see: [Quickstart Guide](docs/QUICKSTART.md)
+
+Or, other guides:
+
+- [Models](docs/MODELS.md) — Model tiers, hardware requirements, and top picks
+- [Runtimes](docs/RUNTIMES.md) — Ollama vs LM Studio vs MLX
+- [Security](docs/SECURITY.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+
 
 ## What You Get
 
@@ -62,13 +72,6 @@ python -m cli config             # Regenerate Continue.dev config
 python -m cli firewall           # Show firewall setup instructions
 ```
 
-## LMStudio
-
-Use the LMStudio app for superior visual controls, model switching, and usage monitoring.
-
-Once you're in VSCode, then just toggle models directly in LMStudio, view
-debugs, inference stats, and more.
-
 ## Security
 
 Three layers ensure no data leaves your machine:
@@ -90,15 +93,6 @@ docs/          Detailed documentation
 tests/         Unit tests
 .vscode/       VS Code settings (telemetry off, extension recommendations)
 ```
-
-## Documentation
-
-- [Quickstart Guide](docs/QUICKSTART.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Model Guide](docs/MODELS.md)
-- [Security](docs/SECURITY.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
-- [LM Studio Setup](docs/LM_STUDIO.md)
 
 ## Requirements
 

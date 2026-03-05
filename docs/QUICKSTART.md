@@ -11,8 +11,8 @@ Get productive with on-device AI coding in under 5 minutes.
 ## Step 1: Install
 
 ```bash
-git clone https://github.com/your-org/on-device.git
-cd on-device
+git clone https://github.com/plpxsk/vs-local.git
+cd vs-local
 pip install -e ".[dev]"
 ```
 
