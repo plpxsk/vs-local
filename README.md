@@ -1,12 +1,14 @@
-# Use local LLMs with VSCode
+# AI-Powered Coding in VS Code – 100% Local, Zero External Calls
 
-Run LLMs **entirely on your machine** for code writing, refactoring, and review.
+Write, refactor, and review code with AI that runs entirely on your machine. **Nothing leaves your device.**
 
-Zero external network calls. Integrated with VS Code via Continue.dev.
+**Integrated features:** Chat | Inline Editing | Autocomplete | Code Review | Test Generation
 
-For great visual management, including usage and model switching, use LMstudio instead of Ollama.
+All powered by local LLMs through VS Code's Continue.dev extension—offline, private, and fast.
 
-Telemtry and other configs are toggled to OFF in this setup, but use at your own risk
+**For better model management:** Use LM Studio instead of Ollama for superior visual controls, model switching, and usage monitoring.
+
+**Privacy-first:** Telemetry and external tracking are disabled by default. Your code stays yours.
 
 ## Quickstart
 
