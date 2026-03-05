@@ -29,6 +29,9 @@ def setup(
     skip_pull: bool = typer.Option(
         False, "--skip-pull", help="Skip model download"
     ),
+    force: bool = typer.Option(
+        False, "--force", help="Overwrite ~/.continue/config.json without prompting"
+    ),
 ):
     """Full guided setup: runtime + model + Continue.dev config."""
     console.print(Panel("vs-local Setup", style="bold blue"))
@@ -50,6 +53,12 @@ def setup(
 
     # Step 3: Select model tier and model (Ollama only)
     if not use_lmstudio:
+        valid_tiers = set(models.get_all_models())
+        if tier and tier not in valid_tiers:
+            console.print(
+                f"[red]Invalid tier: {tier}. Choose from: {', '.join(sorted(valid_tiers))}[/red]"
+            )
+            raise typer.Exit(1)
         recommended = detect.recommend_tier(ram_gb)
         if not tier:
             console.print("")
@@ -123,9 +132,17 @@ def setup(
     repo_path = write_config(config)
     console.print(f"  Config written to: {repo_path}")
 
-    home_path = install_to_home(config)
-    if home_path:
-        console.print(f"  Config installed to: {home_path}")
+    continue_home = Path.home() / ".continue" / "config.json"
+    overwrite_home = force or not continue_home.exists()
+    if not overwrite_home:
+        overwrite_home = typer.confirm(
+            "Overwrite ~/.continue/config.json? (existing file will be backed up)",
+            default=False,
+        )
+    if overwrite_home:
+        home_path = install_to_home(config, overwrite=True)
+        if home_path:
+            console.print(f"  Config installed to: {home_path}")
 
     # Step 7: Verify
     console.print("\n[bold]Running verification...[/bold]")
@@ -150,7 +167,7 @@ def setup(
 @app.command(name="verify")
 def verify_cmd(
     use_lmstudio: bool = typer.Option(False, "--lmstudio", help="Check LM Studio instead of Ollama"),
-    model: str = typer.Option("qwen2.5-coder:7b", "--model", help="Model to verify"),
+    model: str = typer.Option("phi4-mini", "--model", help="Model to verify"),
 ):
     """Health check: server, model, inference, network audit."""
     console.print(Panel("Verification", style="bold blue"))
@@ -203,19 +220,30 @@ def models_cmd(
 @app.command(name="config")
 def config_cmd(
     use_lmstudio: bool = typer.Option(False, "--lmstudio", help="Generate config for LM Studio"),
-    model: str = typer.Option("qwen2.5-coder:7b", "--model", help="Model name (Ollama only)"),
+    model: str = typer.Option("phi4-mini", "--model", help="Model name (Ollama only)"),
     install: bool = typer.Option(False, "--install", help="Also install to ~/.continue/"),
+    force: bool = typer.Option(
+        False, "--force", help="Overwrite ~/.continue/config.json without prompting"
+    ),
 ):
-    """Regenerate Continue.dev config."""
+    """Regenerate Continue.dev config. With --install, copies to ~/.continue/ (backs up existing)."""
     provider = "lmstudio" if use_lmstudio else "ollama"
     config = generate_config(model, provider=provider)
     path = write_config(config)
     console.print(f"Config written to: {path}")
 
     if install:
-        home_path = install_to_home(config)
-        if home_path:
-            console.print(f"Installed to: {home_path}")
+        continue_home = Path.home() / ".continue" / "config.json"
+        overwrite_home = force or not continue_home.exists()
+        if not overwrite_home:
+            overwrite_home = typer.confirm(
+                "Overwrite ~/.continue/config.json? (existing file will be backed up)",
+                default=False,
+            )
+        if overwrite_home:
+            home_path = install_to_home(config, overwrite=True)
+            if home_path:
+                console.print(f"Installed to: {home_path}")
 
 
 @app.command(name="vscode-init")

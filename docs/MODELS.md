@@ -4,8 +4,8 @@
 
 | Tier | Model | Download Size | RAM Required | Best For |
 |------|-------|--------------|-------------|----------|
-| small | `qwen2.5-coder:1.5b` | ~1 GB | 4 GB | Fast completions, low-end hardware |
-| medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | **Recommended default** |
+| small | `phi4-mini` | ~2.5 GB | 4 GB | **Default.** Fast completions, low-end hardware |
+| medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | Recommended for 8 GB+ RAM |
 | large | `deepseek-coder-v2:16b` | ~9 GB | 16 GB | Highest quality |
 
 The `setup` command auto-detects your RAM and recommends a tier. Override with `--tier`:
@@ -17,16 +17,17 @@ python -m cli setup --tier small
 ## Chat vs Autocomplete
 
 The default config uses two models:
-- **Chat model** (`qwen2.5-coder:7b`) — For chat, inline edits, code review
-- **Autocomplete model** (`qwen2.5-coder:1.5b`) — For fast tab completions
+- **Chat model** — Depends on tier: `phi4-mini` (small), `qwen2.5-coder:7b` (medium), `deepseek-coder-v2:16b` (large). Used for chat, inline edits, code review.
+- **Autocomplete model** (`qwen2.5-coder:1.5b`) — For fast tab completions (shared across tiers)
 
 ## Managing Models
 
 ```bash
 python -m cli models                           # List tiers and local models
-python -m cli models --pull qwen2.5-coder:7b   # Pull a model
+python -m cli models --pull phi4-mini          # Pull default (small tier)
+python -m cli models --pull qwen2.5-coder:7b   # Pull medium tier
 ollama list                                    # List local models
-ollama rm qwen2.5-coder:1.5b                   # Remove a model
+ollama rm phi4-mini                            # Remove a model
 ```
 
 After pulling a new model, update your config:

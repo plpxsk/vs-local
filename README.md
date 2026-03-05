@@ -12,24 +12,26 @@ All powered by local LLMs through VS Code's Continue.dev extension—offline, pr
 
 ## Quickstart
 
+**Prerequisites:** Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum).
+
 ```bash
 # 1. Clone and install
 git clone https://github.com/plpxsk/vs-local.git
 cd vs-local
 pip install -e .
 
-# 2. Run guided setup — prompts you to choose Ollama or LM Studio
+# 2. Run guided setup — prompts you to choose Ollama or LM Studio (or add --lmstudio)
 python -m cli setup
 
-# 3. Open in VS Code
+# 3. Open in VS Code and install the Continue.dev extension when prompted
 code .
-# Install the recommended Continue.dev extension when prompted
 
-# 4. Start coding with AI
-# Cmd+L (chat) | Cmd+I (inline edit) | Tab (autocomplete)
+# 4. Start coding with AI: Cmd+L (chat) | Cmd+I (inline edit) | Tab (autocomplete)
 ```
 
-For more, see: [Quickstart Guide](docs/QUICKSTART.md)
+Setup will: detect OS and RAM, recommend a model tier (default small = `phi4-mini`), check or install Ollama, pull the model, generate a Continue.dev config locked to localhost, and optionally install it to `~/.continue/` (prompts before overwriting). If `~/.continue/config.json` already exists, use `--force` to overwrite without prompting.
+
+**Verify:** `python -m cli verify` — confirms server, model, inference, and that no external network calls are detected.
 
 **Using in your own project?** After setup, the Continue.dev config is global and works in any repo. To also copy the VS Code privacy settings into your project:
 
@@ -38,7 +40,11 @@ cd /path/to/your-project
 python -m cli vscode-init
 ```
 
-Or, other guides:
+**Examples:** See `examples/` for exercises (code generation, refactoring, code review, test generation). Troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
+---
+
+## Other guides
 
 - [Models](docs/MODELS.md) — Model tiers, hardware requirements, and top picks
 - [Runtimes](docs/RUNTIMES.md) — Ollama vs LM Studio vs MLX
