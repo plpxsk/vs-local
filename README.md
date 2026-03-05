@@ -1,4 +1,4 @@
-# AI-Powered Coding in VS Code – 100% Local, Zero External Calls
+# Use local LLMs in VS Code – 100% Local, Zero External Calls
 
 Write, refactor, and review code with AI that runs entirely on your machine. **Nothing leaves your device.**
 
