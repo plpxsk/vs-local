@@ -48,7 +48,7 @@ All powered by local models. Nothing leaves your machine.
 | medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | **Recommended default** |
 | large | `deepseek-coder-v2:16b` | ~9 GB | 16 GB | Highest quality |
 
-The setup command auto-detects your RAM and recommends a tier.
+The setup command auto-detects your RAM and _recommends a tier_.
 
 ## CLI Commands
 
@@ -61,6 +61,13 @@ python -m cli models --pull qwen2.5-coder:7b  # Pull a specific model
 python -m cli config             # Regenerate Continue.dev config
 python -m cli firewall           # Show firewall setup instructions
 ```
+
+## LMStudio
+
+Use the LMStudio app for superior visual controls, model switching, and usage monitoring.
+
+Once you're in VSCode, then just toggle models directly in LMStudio, view
+debugs, inference stats, and more.
 
 ## Security
 
