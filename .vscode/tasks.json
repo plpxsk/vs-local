@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Setup On-Device LLM",
+      "type": "shell",
+      "command": "python -m cli setup",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Verify On-Device LLM",
+      "type": "shell",
+      "command": "python -m cli verify",
+      "group": "test",
+      "problemMatcher": []
+    },
+    {
+      "label": "List Models",
+      "type": "shell",
+      "command": "python -m cli models",
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "telemetry.telemetryLevel": "off",
+  "http.proxySupport": "off",
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false,
+  "update.mode": "none",
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}
