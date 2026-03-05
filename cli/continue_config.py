@@ -1,7 +1,6 @@
 """Generate Continue.dev configuration locked to localhost."""
 
 import json
-import os
 from pathlib import Path
 
 from cli.models import AUTOCOMPLETE_MODEL
@@ -33,24 +32,20 @@ def generate_config(
             "allowAnonymousTelemetry": False,
         }
     else:
-        # LM Studio (OpenAI-compatible)
-        base = api_base or "http://localhost:1234/v1"
+        # Use Continue.dev's native lmstudio provider — it queries /v1/models at
+        # runtime to detect whichever model is currently loaded in LM Studio.
         return {
             "models": [
                 {
                     "title": "Local Coder (LM Studio)",
-                    "provider": "openai",
-                    "model": model_name,
-                    "apiBase": base,
-                    "apiKey": "lm-studio",
+                    "provider": "lmstudio",
+                    "model": "AUTODETECT",
                 }
             ],
             "tabAutocompleteModel": {
                 "title": "Local Autocomplete (LM Studio)",
-                "provider": "openai",
-                "model": model_name,
-                "apiBase": base,
-                "apiKey": "lm-studio",
+                "provider": "lmstudio",
+                "model": "AUTODETECT",
             },
             "allowAnonymousTelemetry": False,
         }

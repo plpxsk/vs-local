@@ -2,18 +2,14 @@
   "models": [
     {
       "title": "Local Coder (LM Studio)",
-      "provider": "openai",
-      "model": "qwen/qwen3-1.7b",
-      "apiBase": "http://localhost:1234/v1",
-      "apiKey": "lm-studio"
+      "provider": "lmstudio",
+      "model": "AUTODETECT"
     }
   ],
   "tabAutocompleteModel": {
     "title": "Local Autocomplete (LM Studio)",
-    "provider": "openai",
-    "model": "qwen/qwen3-1.7b",
-    "apiBase": "http://localhost:1234/v1",
-    "apiKey": "lm-studio"
+    "provider": "lmstudio",
+    "model": "AUTODETECT"
   },
   "allowAnonymousTelemetry": false
 }

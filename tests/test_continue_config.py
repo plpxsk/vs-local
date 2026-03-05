@@ -17,10 +17,11 @@ def test_generate_config_ollama():
 
 
 def test_generate_config_lmstudio():
-    config = generate_config("some-model", provider="lmstudio")
-    assert config["models"][0]["provider"] == "openai"
-    assert config["models"][0]["apiBase"] == "http://localhost:1234/v1"
-    assert config["models"][0]["apiKey"] == "lm-studio"
+    config = generate_config("ignored", provider="lmstudio")
+    assert config["models"][0]["provider"] == "lmstudio"
+    assert config["models"][0]["model"] == "AUTODETECT"
+    assert config["tabAutocompleteModel"]["provider"] == "lmstudio"
+    assert config["tabAutocompleteModel"]["model"] == "AUTODETECT"
     assert config["allowAnonymousTelemetry"] is False
 
 
@@ -30,12 +31,11 @@ def test_generate_config_custom_api_base():
 
 
 def test_generate_config_localhost_only():
-    """Verify all API bases point to localhost."""
-    for provider in ["ollama", "lmstudio"]:
-        config = generate_config("test-model", provider=provider)
-        for model in config["models"]:
-            assert "localhost" in model["apiBase"]
-        assert "localhost" in config["tabAutocompleteModel"]["apiBase"]
+    """Verify ollama API base points to localhost."""
+    config = generate_config("test-model", provider="ollama")
+    for model in config["models"]:
+        assert "localhost" in model["apiBase"]
+    assert "localhost" in config["tabAutocompleteModel"]["apiBase"]
 
 
 def test_write_config():

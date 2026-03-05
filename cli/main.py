@@ -170,7 +170,7 @@ def models_cmd(
 @app.command(name="config")
 def config_cmd(
     use_lmstudio: bool = typer.Option(False, "--lmstudio", help="Generate config for LM Studio"),
-    model: str = typer.Option("qwen2.5-coder:7b", "--model", help="Model name"),
+    model: str = typer.Option("qwen2.5-coder:7b", "--model", help="Model name (Ollama only)"),
     install: bool = typer.Option(False, "--install", help="Also install to ~/.continue/"),
 ):
     """Regenerate Continue.dev config."""
