@@ -4,11 +4,13 @@ Write, refactor, and review code with AI that runs entirely on your machine. **N
 
 **Integrated features:** Chat | Inline Editing | Autocomplete | Code Review | Test Generation
 
+**Privacy-first:** Telemetry and external tracking are disabled by default. Your code stays yours.
+
 All powered by local LLMs through VS Code's Continue.dev extension—offline, private, and fast.
 
-**For better model management:** Use LM Studio instead of Ollama for superior visual controls, model switching, and usage monitoring.
+**For better model management:** Use the LM Studio setup option, instead of Ollama, for superior visual controls, model switching, and usage monitoring.
 
-**Privacy-first:** Telemetry and external tracking are disabled by default. Your code stays yours.
+_Note: we provide no guarantees on security, but turn off Wifi on your macbook to confirm ;)_
 
 ## Quickstart
 
@@ -20,11 +22,11 @@ git clone https://github.com/plpxsk/vs-local.git
 cd vs-local
 pip install -e .
 
-# 2. Run guided setup — prompts you to choose Ollama or LM Studio (or add --lmstudio)
+# 2. Run guided setup — prompts you to choose Ollama or LM Studio
 python -m cli setup
 
 # 3. Open in VS Code and install the Continue.dev extension when prompted
-code .
+code . # or open project in VSCode
 
 # 4. Start coding with AI: Cmd+L (chat) | Cmd+I (inline edit) | Tab (autocomplete)
 ```
