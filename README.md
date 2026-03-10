@@ -79,7 +79,7 @@ See `examples/` for exercises (code generation, refactoring, code review, test g
 - **Code review** - Find bugs, security issues, code smells
 - **Test generation** - Generate pytest tests from your code
 
-All powered by local models. Nothing leaves your machine.
+All powered by local models. Nothing leaves your machine (not guaranteed).
 
 # Model Tiers
 
