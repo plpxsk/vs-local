@@ -17,10 +17,12 @@ _Note: we provide no guarantees on security, but turn off Wifi on your macbook t
 
 _Use the **LM Studio** setup option, instead of Ollama, for superior visual control, model switching, and usage monitoring._
 
-_Prerequisites: Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum)_
+_Prerequisites: Install [Ollama](https://ollama.com) or [LM Studio](https://lmstudio.ai), Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum)_
+
+
 
 ```bash
-# 1. Clone and install
+# clone and install (into a virtual env)
 git clone https://github.com/plpxsk/vs-local.git
 cd vs-local
 pip install -e .
@@ -45,6 +47,7 @@ To verify install, run: `python -m cli verify`
 After setup, the Continue.dev config is global and works in any repo. To also copy the VS Code privacy settings into your project:
 
 ```bash
+# activate venv as needed
 cd /path/to/your-project
 python -m cli vscode-init
 ```
