@@ -13,11 +13,11 @@ _Note: we provide no guarantees on security, but turn off Wifi on your macbook t
 
 # Quickstart
 
-_Use the **LM Studio** setup option, instead of Ollama, for superior visual control, model switching, and usage monitoring._
-
 ## Install
 
-**Prerequisites:** Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum).
+_Use the **LM Studio** setup option, instead of Ollama, for superior visual control, model switching, and usage monitoring._
+
+_Prerequisites:** Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum)_
 
 ```bash
 # 1. Clone and install
