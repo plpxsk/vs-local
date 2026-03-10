@@ -17,7 +17,7 @@ _Note: we provide no guarantees on security, but turn off Wifi on your macbook t
 
 _Use the **LM Studio** setup option, instead of Ollama, for superior visual control, model switching, and usage monitoring._
 
-_Prerequisites:** Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum)_
+_Prerequisites: Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum)_
 
 ```bash
 # 1. Clone and install
@@ -36,7 +36,9 @@ code . # or open project in VSCode
 
 Setup will: detect OS and RAM, recommend a model tier (default small = `phi4-mini`), check or install Ollama, pull the model, generate a Continue.dev config locked to localhost, and optionally install it to `~/.continue/` (prompts before overwriting). If `~/.continue/config.json` already exists, use `--force` to overwrite without prompting.
 
-**Verify:** `python -m cli verify` — confirms server, model, inference, and that no external network calls are detected.
+For help selecting local models, see below, [Model Tiers](#model-tiers).
+
+To verify install, run: `python -m cli verify`
 
 ## Use in your own project
 
