@@ -8,11 +8,14 @@ Write, refactor, and review code with AI that runs entirely on your machine. **N
 
 All powered by local LLMs through VS Code's Continue.dev extension—offline, private, and fast.
 
-**For better model management:** Use the LM Studio setup option, instead of Ollama, for superior visual controls, model switching, and usage monitoring.
 
 _Note: we provide no guarantees on security, but turn off Wifi on your macbook to confirm ;)_
 
-## Quickstart
+# Quickstart
+
+_Use the **LM Studio** setup option, instead of Ollama, for superior visual control, model switching, and usage monitoring._
+
+## Install
 
 **Prerequisites:** Python 3.10+, VS Code, 8 GB+ RAM recommended (4 GB minimum).
 
@@ -35,48 +38,18 @@ Setup will: detect OS and RAM, recommend a model tier (default small = `phi4-min
 
 **Verify:** `python -m cli verify` — confirms server, model, inference, and that no external network calls are detected.
 
-**Using in your own project?** After setup, the Continue.dev config is global and works in any repo. To also copy the VS Code privacy settings into your project:
+## Use in your own project
+
+After setup, the Continue.dev config is global and works in any repo. To also copy the VS Code privacy settings into your project:
 
 ```bash
 cd /path/to/your-project
 python -m cli vscode-init
 ```
 
-**Examples:** See `examples/` for exercises (code generation, refactoring, code review, test generation). Troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+## Usage
 
----
-
-## Other guides
-
-- [Models](docs/MODELS.md) — Model tiers, hardware requirements, and top picks
-- [Runtimes](docs/RUNTIMES.md) — Ollama vs LM Studio vs MLX
-- [Security](docs/SECURITY.md)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
-
-
-## What You Get
-
-- **Chat** - Ask questions, generate code, explain code (Cmd+L)
-- **Inline edit** - Select code and describe changes (Cmd+I)
-- **Autocomplete** - Tab completions as you type
-- **Code review** - Find bugs, security issues, code smells
-- **Test generation** - Generate pytest tests from your code
-
-All powered by local models. Nothing leaves your machine.
-
-## Model Tiers
-
-| Tier | Model | Download | RAM | Best For |
-|------|-------|----------|-----|----------|
-| small | `phi4-mini` | ~2.5 GB | 4 GB | Fast completions, low-end hardware |
-| medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | **Recommended default** |
-| large | `deepseek-coder-v2:16b` | ~9 GB | 16 GB | Highest quality |
-
-The setup command auto-detects your RAM and _recommends a tier_.
-
-## CLI Commands
-
-Run the app with `python -m cli` (no standalone binary):
+Run the app with `python -m cli`
 
 ```bash
 python -m cli setup              # Full guided setup (prompts for runtime)
@@ -89,7 +62,31 @@ python -m cli firewall           # Show firewall setup instructions
 python -m cli vscode-init        # Copy VS Code settings into current project
 ```
 
-## Security
+## Examples
+
+See `examples/` for exercises (code generation, refactoring, code review, test generation). Troubleshooting: [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
+
+# What You Get
+
+- **Chat** - Ask questions, generate code, explain code (Cmd+L)
+- **Inline edit** - Select code and describe changes (Cmd+I)
+- **Autocomplete** - Tab completions as you type
+- **Code review** - Find bugs, security issues, code smells
+- **Test generation** - Generate pytest tests from your code
+
+All powered by local models. Nothing leaves your machine.
+
+# Model Tiers
+
+| Tier | Model | Download | RAM | Best For |
+|------|-------|----------|-----|----------|
+| small | `phi4-mini` | ~2.5 GB | 4 GB | Fast completions, low-end hardware |
+| medium | `qwen2.5-coder:7b` | ~4.5 GB | 8 GB | **Recommended default** |
+| large | `deepseek-coder-v2:16b` | ~9 GB | 16 GB | Highest quality |
+
+The setup command auto-detects your RAM and _recommends a tier_.
+
+# Security
 
 Three layers ensure no data leaves your machine:
 
@@ -99,25 +96,14 @@ Three layers ensure no data leaves your machine:
 
 See [docs/SECURITY.md](docs/SECURITY.md) for details.
 
-## Project Structure
+# Learn more
 
-```
-cli/           CLI tool (setup, verify, models, config)
-config/        Pre-built Continue.dev configuration
-security/      Firewall templates and network audit script
-examples/      Demo exercises and sample app
-docs/          Detailed documentation
-tests/         Unit tests
-.vscode/       VS Code settings (telemetry off, extension recommendations)
-```
+- [Models](docs/MODELS.md) — Model tiers, hardware requirements, and top picks
+- [Runtimes](docs/RUNTIMES.md) — Ollama vs LM Studio vs MLX
+- [Security](docs/SECURITY.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
 
-## Requirements
 
-- Python 3.10+
-- 4 GB+ RAM (8 GB+ recommended)
-- macOS, Linux, or Windows
-- VS Code (for IDE integration)
-
-## License
+# License
 
 MIT
